@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Century Gothic";
+    src: url("../fonts/CenturyGothic.woff2") format("woff2"), url("../fonts/CenturyGothic.woff") format("woff");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Century Gothic";
+    src: url("../fonts/CenturyGothic-Italic.woff2") format("woff2"), url("../fonts/CenturyGothic-Italic.woff") format("woff");
+    font-weight: 400;
+    font-display: swap;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Century Gothic";
+    src: url("../fonts/CenturyGothic-Bold.woff2") format("woff2"), url("../fonts/CenturyGothic-Bold.woff") format("woff");
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Century Gothic";
+    src: url("../fonts/CenturyGothic-BoldItalic.woff2") format("woff2"), url("../fonts/CenturyGothic-BoldItalic.woff") format("woff");
+    font-weight: 700;
+    font-display: swap;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "FuturaNDBook";
+    src: url("../fonts/FuturaNDBook.woff2") format("woff2"), url("../fonts/FuturaNDBook.woff") format("woff");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }

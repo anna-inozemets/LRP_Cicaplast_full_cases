@@ -1,0 +1,74 @@
+<section class="panel autoload" data-count="11" data-prev="slide10">
+	<div class="containerBlock">
+		<div class="slide slide-12">
+			<div class="sl12-content">
+				<img src="images/main-logo-lg.png" alt="" />
+				<p>ВІТАЄМО!</p>
+				<p>ВИ УСПІШНО ПРОЙШЛИ<br /> ТЕСТУВАННЯ</p>
+			</div>
+			<div class="sl12-bg"></div>
+		</div>
+	</div>
+</section>
+<style>
+	.prev {
+		display: none;
+	}
+	.next {
+		display: none;
+	}
+	.slide-12 {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		padding: 0;
+		width: 100%;
+		background-color: #79a8dc;
+		background-image: url('../images/sl12-bg.jpg');
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	.sl12-content {
+		width: 68.8%;
+		text-align: right;
+		padding: 8.5em 3.6em 0 8em;
+	}
+	.sl12-content img {
+		max-width: 65em;
+		margin: 0 auto 16em;
+	}
+	.sl12-content p {
+		color: #fff;
+		font-size: 7.9em;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+		margin-bottom: 1.2em;
+		position: relative;
+	}
+	.sl12-bg {
+		width: 53.2%;
+		
+	}
+</style>
+<script>
+	TweenMax.to('section', 0.5, { opacity: 1, ease: Linear.easeNone });
+	var tl = new TimelineMax({ paused: true, onComplete: () => show_arrow_next_slide() });
+	tl.staggerFrom(
+		'.sl12-content p',
+		0.8,
+		{
+			autoAlpha: 0,
+			top: '+=50',
+		},
+		0.8
+	);
+	tl.play();
+
+	function show_arrow_next_slide() {
+		setTimeout(function () {
+			$('.prev').show('slow');
+		}, 2000);
+	}
+</script>

@@ -1,0 +1,148 @@
+<section class="panel autoload" data-count="10" data-next="slide11" data-prev="slide9">
+	<div class="containerBlock">
+		<div class="slide slide-2">
+			<img class="main-logo" src="images/main-logo.png" alt="" />
+			<div class="content">
+				<div class="content__img">
+					<div class="pacient">
+						<div class="pacient__img">
+							<img src="images/women-9.jpg" alt="" />
+						</div>
+						<div class="pacient__name"><span>ОЛЕНА </span></div>
+						<div class="pacient__age"><span>(33 РОКИ)</span></div>
+						<ul class="pacient-list">
+							<li class="pacient-list__item"><span>подразнена шкіра, почервоніння, сонячні незначні опіки </span></li>
+						</ul>
+						<div class="pacient__faq">
+							<span>ШУКАЄ ЗАСПОКІЙЛИВІ ТА РАНОЗАГОЮВАЛЬНІ ЗАСОБИ ДЛЯ ТІЛА </span>
+						</div>
+					</div>
+				</div>
+				<div class="content__product">
+					<div class="content__faq"><span>ЯКІ ЗАСОБИ ЗАПРОПОНУЄТЕ? </span></div>
+					<div id="content">
+						<div class="name-list">
+							<div class="name-list__item"><span>ОЧИЩЕННЯ</span></div>
+							<div class="name-list__item"><span>ДОГЛЯД</span></div>
+						</div>
+
+						<div class="slots" id="cardSlots">
+							<div class="slots__item slots__item--1" data-number="1">
+								<div class="plus"><span>+</span></div>
+							</div>
+							<div class="slots__item slots__item--2" data-number="2">
+								<div class="plus"><span>+</span></div>
+							</div>
+						</div>
+						<div class="list" id="cardPile">
+							<div class="list__item list__item--6" data-number="[1]" data-prod="6">
+								<img src="images/prod6.png" alt="" />
+							</div>
+							<div class="list__item list__item--4" data-number="[2]" data-prod="4">
+								<img src="images/prod4.png" alt="" />
+							</div>
+							<div class="list__item list__item--5" data-number="[5]" data-prod="5">
+								<img src="images/prod5.png" alt="" />
+							</div>
+							<div class="list__item list__item--7" data-number="[2]" data-prod="7">
+								<img src="images/prod7.png" alt="" />
+							</div>
+							<div class="list__item list__item--9" data-number="[5]" data-prod="9">
+								<img src="images/prod9.png" alt="" />
+							</div>
+
+							<div class="list__item list__item--1" data-number="[5]" data-prod="1">
+								<img src="images/prod1.png" alt="" />
+							</div>
+							<div class="list__item list__item--11" data-number="[5]" data-prod="11">
+								<img src="images/prod11.png" alt="" />
+							</div>
+							<div class="list__item list__item--10" data-number="[5]" data-prod="10">
+								<img src="images/prod10.png" alt="" />
+							</div>
+							<div class="list__item list__item--3" data-number="[5]" data-prod="3">
+								<img src="images/prod3.png" alt="" />
+							</div>
+						</div>
+					</div>
+					<div class="help-inf"><span>Обери продукт і занеси у відповідну категорію догляду</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<style>
+	.prev {
+		display: none;
+	}
+	.next {
+		display: none;
+	}
+</style>
+<script>
+	TweenMax.to('section', 0.5, { opacity: 1, ease: Linear.easeNone });
+	var tl = new TimelineMax({ paused: true, onComplete: () => show_arrow_next_slide() });
+	tl.play();
+
+	var prodItems = document.querySelectorAll('.list__item');
+	var prodSlots = document.querySelectorAll('.slots__item');
+
+	prodItems.forEach((prodItem, index) => {
+		$(prodItem).draggable({
+			containment: '#content',
+			stack: '#cardPile div',
+			cursor: 'move',
+			revert: true,
+		});
+	});
+	prodSlots.forEach((prodItem, index) => {
+		$(prodItem).droppable({
+			accept: '#cardPile div',
+			hoverClass: 'hovered',
+			drop: handleCardDrop,
+		});
+	});
+
+	var correctCards = 0;
+	var сountCard = [1, 2];
+	var correctLenght = сountCard.reduce((total, amount) => total + amount);
+
+	function handleCardDrop(event, ui) {
+		var slotNumber = $(this).data('number');
+		var cardNumber = ui.draggable.data('number');
+		var prod = ui.draggable.data('prod');
+
+		if (cardNumber.includes(slotNumber)) {
+			const index = cardNumber.indexOf(slotNumber);
+			const x = cardNumber.splice(index, 1);
+			$('*[data-prod="' + prod + '"]').attr('data-number', '[' + cardNumber + ']');
+			сountCard[slotNumber - 1]--;
+			ui.draggable.addClass('correct');
+			ui.draggable.draggable('disable');
+
+			$('.slots__item:nth-child(' + slotNumber + ')').addClass('prod' + prod);
+
+			$(this).append('<img src="images/prod' + prod + '.png" class="prod--' + prod + '" alt="">');
+			if (сountCard[slotNumber - 1] === 0) {
+				$('.slots__item:nth-child(' + slotNumber + ')')
+					.removeClass('half-active')
+					.addClass('active');
+			} else {
+				$('.slots__item:nth-child(' + slotNumber + ')').addClass('half-active');
+			}
+
+			ui.draggable.position({ of: $(this), my: 'center top', at: 'center top' });
+			ui.draggable.draggable('option', 'revert', false);
+			correctCards++;
+			show_arrow_next_slide();
+		}
+	}
+	function show_arrow_next_slide() {
+		if (correctCards == correctLenght) {
+			setTimeout(function () {
+				$('.prev').show('slow');
+				$('.next').show('slow');
+			}, 2000);
+		}
+	}
+</script>
